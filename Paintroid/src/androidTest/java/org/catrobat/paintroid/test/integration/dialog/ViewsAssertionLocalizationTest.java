@@ -1,16 +1,26 @@
 package org.catrobat.paintroid.test.integration.dialog;
 
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.os.Environment;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.NoMatchingViewException;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
 
 import org.catrobat.paintroid.MainActivity;
 import org.catrobat.paintroid.R;
-import org.junit.Rule;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -26,7 +36,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 /**
@@ -34,13 +44,21 @@ import static org.hamcrest.core.IsNull.notNullValue;
  */
 @RunWith(AndroidJUnit4.class)
 
-public class ViewsAssertionLocalizationTest {
-    @Rule
-    public ActivityTestRule<MainActivity> mActivityRule;
+public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestCase2<MainActivity> {
+private MainActivity mActivity;
 
-    public ViewsAssertionLocalizationTest() {
-        mActivityRule = new ActivityTestRule (MainActivity.class);
-    }
+public ViewsAssertionLocalizationTest() {
+        super(MainActivity.class);
+        }
+
+
+    @Before
+     public void setUp() throws Exception {
+        super.setUp();
+        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
+        mActivity = getActivity();
+        }
+
 
     @Test
     public void assertNoOverlappingForLineStrokeDialog()
@@ -246,6 +264,47 @@ public class ViewsAssertionLocalizationTest {
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText(R.string.menu_language_settings)).perform(click());
         onView(withId(R.id.ar)).perform(click());
+    }
+
+    @Test
+    public void assertTakeScreenShots() {
+        onView(withId(R.id.btn_bottom_tools))
+                .perform(click());
+        takeScreenshot("screenshot-001",getActivity());
+    }
+
+    public static void takeScreenshot(String name,Activity activity)
+    {
+        // Screenshots are always stored under /Pictures folder
+        String path =
+                Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/Pictures/" + name + ".png";
+        View scrScreenshotView = activity.getWindow().getDecorView().getRootView();
+        scrScreenshotView.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(scrScreenshotView.getDrawingCache());
+        scrScreenshotView.setDrawingCacheEnabled(false);
+
+        OutputStream out = null;
+        File imageFile = new File(path);
+
+        try {
+            out = new FileOutputStream(imageFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.flush();
+        } catch (FileNotFoundException e) {
+            // exception
+        } catch (IOException e) {
+            // exception
+        } finally {
+
+            try {
+                if (out != null) {
+                    out.close();
+                }
+
+            } catch (Exception exc) {
+            }
+
+        }
     }
 }
 
