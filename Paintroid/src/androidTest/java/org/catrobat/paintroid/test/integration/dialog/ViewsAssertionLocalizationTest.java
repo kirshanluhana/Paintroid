@@ -23,6 +23,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
 import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
@@ -55,7 +56,7 @@ public class ViewsAssertionLocalizationTest {
     {
         onView(withId(R.id.btn_bottom_attribute2))
                 .perform(click());
-        onView(withId(R.id.colorchooser_base_layout)).check(noOverlaps());
+        onView(isRoot()).check(noOverlaps());
     }
 
     @Test
@@ -240,6 +241,12 @@ public class ViewsAssertionLocalizationTest {
     }
 
 
+    public void changeLanguageBeforeStartTesting()
+    {
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText(R.string.menu_language_settings)).perform(click());
+        onView(withId(R.id.ar)).perform(click());
+    }
 }
 
 
