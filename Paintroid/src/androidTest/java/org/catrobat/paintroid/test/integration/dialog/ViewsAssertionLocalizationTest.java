@@ -1,25 +1,39 @@
 package org.catrobat.paintroid.test.integration.dialog;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Environment;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 
 import org.catrobat.paintroid.MainActivity;
+import org.catrobat.paintroid.MultilanguageActivity;
 import org.catrobat.paintroid.R;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
+import org.junit.runners.Parameterized;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
@@ -37,28 +51,66 @@ import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.isA;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 /**
  * Created by Aiman Ayyal Awwad on 10/29/2015.
  */
-@RunWith(AndroidJUnit4.class)
-
+//@RunWith(AndroidJUnit4.class)
+@RunWith(Parameterized.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestCase2<MainActivity> {
-private MainActivity mActivity;
 
-public ViewsAssertionLocalizationTest() {
+    private static MainActivity mActivity;
+
+    public static final String TAG = "PAINTROID.ESPRESSO";
+
+    private String testLanguage = null;
+
+    public ViewsAssertionLocalizationTest(String testLanguage) {
+
         super(MainActivity.class);
-        }
+        this.testLanguage = testLanguage;
+        Log.d(ViewsAssertionLocalizationTest.TAG, "### constructor ViewsAssertionLocalizationTest() executed: ");
 
+    }
 
     @Before
      public void setUp() throws Exception {
         super.setUp();
         injectInstrumentation(InstrumentationRegistry.getInstrumentation());
         mActivity = getActivity();
-        }
 
+// either change language programatically in setUp()
+// which is done for every test method execution
+//            Locale mLocale = new Locale(testLanguage);
+//            Locale.setDefault(mLocale);
+//            Context context = mActivity.getApplicationContext();
+//            Resources resources = context.getResources();
+//            DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+//            Configuration conf = resources.getConfiguration();
+//            conf.locale = mLocale;
+//            conf.setLayoutDirection(mLocale);
+//            resources.updateConfiguration(conf, displayMetrics);
+
+    }
+
+    // ... or force test runner to use a certain order of tests, e.g., ascending names
+    // so then it is possible to simulate a language change with Espresso framework
+    // as the first testCase which is executed and this setting will stay over the lifespan
+    // of the test.
+    @Test
+    public void assertArabicLanguageIsSet() {
+        onView(withId(R.id.main_layout)).check(matches(isDisplayed()));
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText(R.string.menu_language_settings)).perform(click());
+        //onView(withId(R.id.ar)).perform(click());
+        //onView(withId(testLanguage)).perform(click());
+        int resId = mActivity.getResources().getIdentifier(testLanguage, "id", mActivity.getApplicationContext().getPackageName());
+        Log.d("PTest:","getIdentifierByName: "+resId);
+        onView(withId(resId)).perform(click());
+    }
 
     @Test
     public void assertNoOverlappingForLineStrokeDialog()
@@ -124,15 +176,6 @@ public ViewsAssertionLocalizationTest() {
         onView(withId(R.id.btn_bottom_tools))
                 .perform(click());
         onView(withId(R.id.gridview_tools_menu)).check(matches(isDisplayed()));
-    }
-
-   @Test
-    public void assertIsDisplayedForMainActivity() {
-
-        onView(withId(R.id.main_layout)).check(matches(isDisplayed()));
-        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
-        onView(withText(R.string.menu_language_settings)).perform(click());
-        onView(withId(R.id.ar)).perform(click());
     }
 
    @Test
@@ -305,6 +348,13 @@ public ViewsAssertionLocalizationTest() {
             }
 
         }
+    }
+
+    // name attribute is optional, provide an unique name for test
+    // multiple parameters, uses Collection<Object[]>
+    @Parameterized.Parameters(name = "language {index}: {0}")
+    public static List<String> differentLanguages() {
+        return Arrays.asList(new String[]{"ar", "de", "en"});
     }
 }
 
