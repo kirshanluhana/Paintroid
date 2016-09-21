@@ -1,0 +1,92 @@
+import static Constants.*
+
+class Constants {
+    // please ENHANCE this list if RTL languages are added to ressources
+    static final String [] rtlLanguages = ["ar","sd","ur","fa","ps"]
+    static final STRING_XML_FILE="string.xml"
+    static final XML_DECLARATION = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+    static final XML_RESOURCES_TAG = "<resources>"
+    static final XML_RESOURCES_CLOSING_TAG = "</resources>"
+}
+
+def xmlStart() {
+    return XML_DECLARATION+"\n"+XML_RESOURCES_TAG+"\n"
+}
+
+def xmlEnd() {
+    return XML_RESOURCES_CLOSING_TAG+"\n"
+}
+
+def xmlArrayTag(name) {
+    return "<string-array name=\"${name}\">"
+}
+
+def xmlArrayTagLine(name) {
+    return xmlArrayTag(name)+"\n"
+}
+
+def xlmArrayEndTag(){
+    return "</string-array>"
+}
+
+def xmlArrayEndTagLine(){
+    return xlmArrayEndTag()+"\n"
+}
+
+
+
+task updateListOfLanguagesToTest << {
+
+    def File appResources = file ('src/main/res')
+    def String xmlTestResourceFileContent = xmlStart()
+    def File xmlTestResourceFile = file(new File('src/androidTest/res/values/languages_to_test.xml'))
+
+    // recreate when necessary
+    if(xmlTestResourceFile.exists()){
+        xmlTestResourceFile.delete()
+        xmlTestResourceFile.createNewFile()
+    }
+
+    def List<String> dirNameList = []
+
+    def FileCollection collection = files {
+        appResources.listFiles().findAll{it.name.startsWith('values')}
+    }
+
+    collection.each {
+        if (it.isDirectory()) {
+            if (it.list().contains(STRING_XML_FILE)){
+                dirNameList.add(it.getName().replace("values-",""))
+            }
+        }
+    }
+
+    // correct default language to "en" if not already
+    dirNameList.remove("values")
+    if (!dirNameList.contains("en")) {
+        dirNameList.add("en")
+    }
+
+    dirNameList.sort()
+
+    // create xml content
+    xmlTestResourceFileContent += "\t"+xmlArrayTagLine("rtl_language_codes")
+
+    rtlLanguages.each {
+        xmlTestResourceFileContent+="\t\t<item>"+it+"</item>\n"
+    }
+
+    xmlTestResourceFileContent += "\t"+xmlArrayEndTagLine()+"\n\n"
+    xmlTestResourceFileContent += "\t"+xmlArrayTagLine("language_codes")
+
+    dirNameList.each {
+        xmlTestResourceFileContent+="\t\t<item>"+it+"</item>\n"
+    }
+    xmlTestResourceFileContent += "\t"+xmlArrayEndTagLine()
+    xmlTestResourceFileContent +=xmlEnd()
+
+    // println xmlTestResourceFileContent
+
+    // writing the xml file to resource folder
+    xmlTestResourceFile << xmlTestResourceFileContent
+}

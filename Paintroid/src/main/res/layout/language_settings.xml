@@ -11,17 +11,15 @@
         <RadioGroup
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layoutDirection="locale"
-            >
+            android:layoutDirection="locale">
 
             <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ar"
-            android:text="@string/arabic"
-            android:layoutDirection="locale"
-            android:onClick="Arabic_Lang"/>
-
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ar"
+                android:text="@string/arabic"
+                android:layoutDirection="locale"
+                android:onClick="Arabic_Lang"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -32,20 +30,6 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/hr"
-                android:text="@string/croatian"
-                android:layoutDirection="locale"
-                android:onClick="Croatian_Lang"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/da"
-                android:text="@string/danish"
-                android:layoutDirection="locale"
-                android:onClick="Danish_Lang"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/de"
                 android:text="@string/german"
                 android:layoutDirection="locale"
@@ -53,10 +37,145 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/en"
+                android:text="@string/english_USA"
+                android:layoutDirection="locale"
+                android:onClick="English_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/es"
+                android:text="@string/spanish"
+                android:layoutDirection="locale"
+                android:onClick="Spanish_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fa"
+                android:text="@string/farsi"
+                android:layoutDirection="locale"
+                android:onClick="Farsi_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fr"
+                android:text="@string/french"
+                android:layoutDirection="locale"
+                android:onClick="French_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/hr"
+                android:text="@string/croatian"
+                android:layoutDirection="locale"
+                android:onClick="Croatian_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/hu"
+                android:text="@string/hungarian"
+                android:layoutDirection="locale"
+                android:onClick="Hungarian_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/it"
+                android:text="@string/italian"
+                android:layoutDirection="locale"
+                android:onClick="Italian_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ja"
+                android:text="@string/japanese"
+                android:layoutDirection="locale"
+                android:onClick="Japanese_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ko"
+                android:text="@string/korean"
+                android:layoutDirection="locale"
+                android:onClick="Korean_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/nl"
                 android:text="@string/dutch_Netherlands"
                 android:layoutDirection="locale"
                 android:onClick="Dutch_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/no"
+                android:text="@string/norwegian"
+                android:layoutDirection="locale"
+                android:onClick="Norwegian_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pl"
+                android:text="@string/polish"
+                android:layoutDirection="locale"
+                android:onClick="Polish_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pt"
+                android:text="@string/portuguese"
+                android:layoutDirection="locale"
+                android:onClick="Portuguese_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ro"
+                android:text="@string/romanian"
+                android:layoutDirection="locale"
+                android:onClick="Romanian_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ru"
+                android:text="@string/russian"
+                android:layoutDirection="locale"
+                android:onClick="Russian_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sl"
+                android:text="@string/slovenian"
+                android:layoutDirection="locale"
+                android:onClick="Slovenian_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sr"
+                android:text="@string/serbian"
+                android:layoutDirection="locale"
+                android:onClick="Serbian_Latin_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sv"
+                android:text="@string/swedish"
+                android:layoutDirection="locale"
+                android:onClick="Swedish_Lang"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tr"
+                android:text="@string/turkish"
+                android:layoutDirection="locale"
+                android:onClick="Turkish_Lang"/>
+
+<!-- don't support these languages here in this research branch yet
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/da"
+                android:text="@string/danish"
+                android:layoutDirection="locale"
+                android:onClick="Danish_Lang"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,15 +204,6 @@
                 android:text="@string/english_United_Kingdom"
                 android:layoutDirection="locale"
                 android:onClick="English_GB_Lang"/>
-
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fr"
-                android:text="@string/french"
-                android:layoutDirection="locale"
-                android:onClick="French_Lang"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,13 +214,6 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/hu"
-                android:text="@string/hungarian"
-                android:layoutDirection="locale"
-                android:onClick="Hungarian_Lang"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/hi"
                 android:text="@string/hindi"
                 android:layoutDirection="locale"
@@ -118,41 +221,10 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/es"
-                android:text="@string/spanish"
-                android:layoutDirection="locale"
-                android:onClick="Spanish_Lang"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/in"
                 android:text="@string/indonesian"
                 android:layoutDirection="locale"
                 android:onClick="Indonesian_Lang"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/it"
-                android:text="@string/italian"
-                android:layoutDirection="locale"
-                android:onClick="Italian_Lang"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ja"
-                android:text="@string/japanese"
-                android:layoutDirection="locale"
-                android:onClick="Japanese_Lang"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ko"
-                android:text="@string/korean"
-                android:layoutDirection="locale"
-                android:onClick="Korean_Lang"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -167,30 +239,6 @@
                 android:text="@string/malay"
                 android:layoutDirection="locale"
                 android:onClick="Malay_Lang"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/no"
-                android:text="@string/norwegian"
-                android:layoutDirection="locale"
-                android:onClick="Norwegian_Lang"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/pl"
-                android:text="@string/polish"
-                android:layoutDirection="locale"
-                android:onClick="Polish_Lang"
-                />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/pt"
-                android:text="@string/portuguese"
-                android:layoutDirection="locale"
-                android:onClick="Portuguese_Lang"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -201,32 +249,10 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ro"
-                android:text="@string/romanian"
-                android:layoutDirection="locale"
-                android:onClick="Romanian_Lang"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ru"
-                android:text="@string/russian"
-                android:layoutDirection="locale"
-                android:onClick="Russian_Lang"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/sd"
                 android:text="@string/sindhi"
                 android:layoutDirection="locale"
                 android:onClick="Sindhi_Lang"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/sl"
-                android:text="@string/slovenian"
-                android:layoutDirection="locale"
-                android:onClick="Slovenian_Lang"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -241,13 +267,6 @@
                 android:text="@string/Serbian_rSP"
                 android:layoutDirection="locale"
                 android:onClick="Serbian_Serbia_Lang"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/sv"
-                android:text="@string/swedish"
-                android:layoutDirection="locale"
-                android:onClick="Swedish_Lang"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -268,15 +287,7 @@
                 android:id="@+id/th"
                 android:text="@string/thai"
                 android:layoutDirection="locale"
-                android:onClick="Thai_Lang"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tr"
-                android:text="@string/turkish"
-                android:layoutDirection="locale"
-                android:onClick="Turkish_Lang"/>
+                android:onClick="Thai_Lang"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -284,13 +295,6 @@
                 android:text="@string/urdu"
                 android:layoutDirection="locale"
                 android:onClick="Urdu_Pakistan_Lang"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fa"
-                android:text="@string/farsi"
-                android:layoutDirection="locale"
-                android:onClick="Farsi_Lang"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -319,7 +323,7 @@
                 android:text="@string/chinese_rTW"
                 android:layoutDirection="locale"
                 android:onClick="Chinese_Taiwan_Lang"/>
-
+-->
         </RadioGroup>
 
     </ScrollView>

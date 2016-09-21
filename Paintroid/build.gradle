@@ -2,6 +2,7 @@
 apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.application'
 apply from: 'adb_tasks.gradle'
+apply from: 'languagetest_tasks.gradle'
 
 android {
     compileSdkVersion 19
@@ -59,6 +60,7 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     androidTestCompile 'com.android.support.test:rules:0.3'
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }
 
 
