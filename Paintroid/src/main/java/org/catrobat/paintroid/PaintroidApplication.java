@@ -71,4 +71,5 @@ public class PaintroidApplication extends Application {
 		}
 		return versionName;
 	}
+
 }

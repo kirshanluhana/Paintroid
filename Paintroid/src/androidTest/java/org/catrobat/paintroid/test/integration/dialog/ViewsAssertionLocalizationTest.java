@@ -18,6 +18,7 @@ import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.base.RootViewPicker;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
 
 import android.test.ActivityInstrumentationTestCase2;
@@ -81,8 +82,9 @@ import static org.hamcrest.core.IsNull.notNullValue;
 /**
  * Created by Aiman Ayyal Awwad on 10/29/2015.
  */
-@RunWith(AndroidJUnit4.class)
-//@RunWith(Parameterized.class)
+//@RunWith(AndroidJUnit4.class)
+@RunWith(Parameterized.class)
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
@@ -94,17 +96,24 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
 
     private String languageCode = null;
 
-    public ViewsAssertionLocalizationTest() {
-
-        super(MainActivity.class);
-    }
-
-//    public ViewsAssertionLocalizationTest(String languageCode) {
+//    public ViewsAssertionLocalizationTest() {
 //
 //        super(MainActivity.class);
-//        this.languageCode = languageCode;
-//        Log.d(ViewsAssertionLocalizationTest.TAG, "### constructor ViewsAssertionLocalizationTest(param) executed - param: "+languageCode);
 //    }
+
+    public ViewsAssertionLocalizationTest(String languageCode) {
+
+        super(MainActivity.class);
+        this.languageCode = languageCode;
+        Log.d(ViewsAssertionLocalizationTest.TAG, "### constructor ViewsAssertionLocalizationTest(param) executed - param: "+languageCode);
+    }
+
+    @BeforeClass
+    public static void perSetup(){
+        for (Locale locale : Locale.getAvailableLocales()) {
+            Log.d("LOCALES", locale.getLanguage() + "_" + locale.getCountry() + " [" + locale.getDisplayName() + "]");
+        }
+    }
 
     @Before
      public void setUp() throws Exception {
@@ -147,9 +156,17 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
 
     }
 
-    @Test
+
+// ****************************************************************************
+// These methods can be scrapped later- just experimenting travesing the app
+// ****************************************************************************
     public void theRealFirstTest(){
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+
+        View rootView =  mActivity.findViewById(android.R.id.content).getRootView();
+        Log.d("PTest: ", "#### --- rootView: onView(not(ViewMatchers.withId(rootView.getId())))) "+not(ViewMatchers.withId(rootView.getId())));
+        Log.d("PTest: ", "#### --- rootView: onView(ViewMatchers.withId(rootView.getId()))) "+ViewMatchers.withId(rootView.getId()));
+
 
         try {
             Thread.sleep(2000);
@@ -159,6 +176,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         onView(withText(R.string.menu_save_image)).perform(click());
         onView(withText(R.string.saved)).inRoot(withDecorView(not(getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
 
+        //takeScreenShot();
 
         //onView(withText(R.string.saved)).inRoot(withDecorView‌​(not(getActivity().g‌​etWindow().getDecorV‌​iew()))) .check(matches(isDisplayed()));
 
@@ -172,7 +190,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         //Espresso.pressBack();
     }
 
-    @Test
+
     public void theRealSecondTest(){
 
         FragmentManager fm = mActivity.getFragmentManager();
@@ -268,13 +286,16 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         }
         return result;
     }
+// **********************************************************************************
+// scrap above coed since it's just experimental for trying to traverse the activity.
+// **********************************************************************************
+
 
     // ... or force test runner to use a certain order of tests, e.g., ascending names
     // so then it is possible to simulate a language change with Espresso framework
     // as the first testCase which is executed and this setting will stay over the lifespan
     // of the test.
     @Test
-    @Ignore
     public void allowSetLanguageForWholeTestSet() {
 
         onView(withId(R.id.main_layout)).check(matches(isDisplayed()));
@@ -296,7 +317,6 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     }
 
     @Test
-    @Ignore
     public void assertNoOverlappingForLineStrokeDialog()
     {
 
@@ -306,16 +326,15 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     }
 
     @Test
-    @Ignore
     public void assertNoOverlappingForColorPaletteDialog()
     {
         onView(withId(R.id.btn_bottom_attribute2))
                 .perform(click());
+        takeScreenShot();
         onView(isRoot()).check(noOverlaps());
     }
 
     @Test
-    @Ignore
     public void assertNoOverlappingForToolsDialog()
     {
         onView(withId(R.id.btn_bottom_tools))
@@ -324,14 +343,12 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     }
 
     @Test
-    @Ignore
     public void assertNoOverlappingForMainActivity()
     {
         onView(withId(R.id.main_layout)).check(noOverlaps());
 
     }
     @Test
-    @Ignore
     public void assertNoEllipseizedTextInToolsDialog() {
         onView(withId(R.id.btn_bottom_tools))
                 .perform(click());
@@ -339,7 +356,6 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     }
 
     @Test
-    @Ignore
     public void assertNoEllipseizedTextInStrokeLineDialog()
     {
         onView(withId(R.id.btn_bottom_attribute1))
@@ -348,7 +364,6 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     }
 
     @Test
-    @Ignore
     public void assertNoEllipseizedTextInColorPalette()
     {
         onView(withId(R.id.btn_bottom_attribute2))
@@ -356,14 +371,12 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         onView(withId(R.id.colorchooser_base_layout)).check(noEllipsizedText());
     }
    @Test
-   @Ignore
    public void assertNoEllipseizedMainActivity()
    {
        onView(withId(R.id.main_layout)).check(noEllipsizedText());
    }
 
     @Test
-    @Ignore
     public void assertIsDisplayedTextForToolsText() {
         onView(withId(R.id.btn_bottom_tools))
                 .perform(click());
@@ -371,7 +384,6 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     }
 
    @Test
-   @Ignore
    public void assertIsDisplayedForColorPaletteDialog()
    {
     onView(withId(R.id.btn_bottom_attribute2))
@@ -380,7 +392,6 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
    }
 
     @Test
-    @Ignore
     public void assertIsDisplayedForStrokeLineDialog()
     {
         onView(withId(R.id.btn_bottom_attribute1))
@@ -389,7 +400,6 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     }
 
     @Test
-    @Ignore
     public void assertNoMultilineButtons() {
         onView(withId(R.id.btn_bottom_tools))
                 .perform(click());
@@ -398,7 +408,6 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
 
 
     @Test
-    @Ignore
     public void assertSeekBarIsRightOfValueForRtlLanguage() {
         onView(withId(R.id.btn_bottom_attribute1))
                 .perform(click());
@@ -411,16 +420,17 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     }
 
     @Test
-    @Ignore
     public void assertSwipingRightForStrokeSeekbar()
     {
         onView(withId(R.id.btn_bottom_attribute1))
                 .perform(click());
         onView(withId(R.id.stroke_width_seek_bar)).perform(swipeRight());
     }
+
+
+
     @Test
-    @Ignore
-    public void assertToolsRightOfTextForRtlLanguages()
+    public void assertToolsRightOfTextForRtlOrLeftOfTextForLtRLanguages()
     {
         onView(withId(R.id.btn_bottom_tools))
                 .perform(click());
@@ -438,8 +448,10 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
 
         }
     }
+
+
+
     @Test
-    @Ignore
     public void assertExistenceForToolsDialog()
     {
         onView(withId(R.id.btn_bottom_tools))
@@ -452,7 +464,6 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     }
 
     @Test
-    @Ignore
     public void assertNoNullValuesForToolsDialog()
     {
         onView(withId(R.id.btn_bottom_tools))
@@ -474,7 +485,6 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     }
 
     @Test
-    @Ignore
     public void assertNoEllipseizedForToolsDialog()
     {
         onView(withId(R.id.btn_bottom_tools))
@@ -496,7 +506,6 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     }
 
     @Test
-    @Ignore
     public void assertCompletelyDisplayedForToolsDialog()
     {
         onView(withId(R.id.btn_bottom_tools))
@@ -525,8 +534,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         onView(withId(R.id.ar)).perform(click());
     }
 
-    @Test
-    @Ignore
+
     public void takeScreenShot() {
         onView(withId(R.id.btn_bottom_tools))
                 .perform(click());
@@ -540,7 +548,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         String path =
                 Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/Pictures/" + name + ".png";
         Log.d(TAG,"##### screenshot path: " +path);
-        View scrScreenshotView = activity.getWindow().getDecorView().getRootView();
+        View scrScreenshotView = activity.getWindow().getDecorView(); //.getRootView();
         scrScreenshotView.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(scrScreenshotView.getDrawingCache());
         scrScreenshotView.setDrawingCacheEnabled(false);
@@ -574,23 +582,28 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     // multiple parameters, uses Collection<Object[]>
     @Parameterized.Parameters(name = "testrun: {index} | lang-code: {0}")
     public static List<String> differentLanguages() {
-        rtlLanguageCodes = Arrays.asList(InstrumentationRegistry.getContext().getResources().getStringArray(org.catrobat.paintroid.test.R.array.rtl_language_codes));
-       List<String> languageCodes = Arrays.asList(InstrumentationRegistry.getContext().getResources().getStringArray(org.catrobat.paintroid.test.R.array.language_codes));
+        rtlLanguageCodes = Arrays.asList(InstrumentationRegistry.getContext().getResources()
+                .getStringArray(org.catrobat.paintroid.test.R.array.rtl_language_codes));
 
-        for (String rtllang:rtlLanguageCodes) {
-            Log.d(ViewsAssertionLocalizationTest.TAG, "#### rtl-lang-codes: "+rtllang);
+        List<String> languageCodes = Arrays.asList(InstrumentationRegistry.getContext()
+                .getResources().getStringArray(org.catrobat.paintroid.test.R.array.language_codes));
+
+        for (String rtllang : rtlLanguageCodes) {
+            Log.d(ViewsAssertionLocalizationTest.TAG, "#### rtl-lang-codes: " + rtllang);
         }
 
-        for (String language:languageCodes) {
-            Log.d(ViewsAssertionLocalizationTest.TAG, "#### lang-codes: "+language);
+        for (String language : languageCodes) {
+            Log.d(ViewsAssertionLocalizationTest.TAG, "#### lang-codes: " + language);
         }
 
 
         return languageCodes;
     }
 
+
+
     /**
-     * helper method for debugging to determine the language code id from the ressources via R.java
+     * helper method for debugging and logging to determine the language code id from the ressources via R.java
      * @param languageCode which resource id is to be retrieved
      * @return the resource id determined by the passed languageCode string
      */
