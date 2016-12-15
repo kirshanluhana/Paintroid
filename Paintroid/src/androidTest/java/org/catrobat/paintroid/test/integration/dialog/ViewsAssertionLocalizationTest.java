@@ -2,6 +2,7 @@ package org.catrobat.paintroid.test.integration.dialog;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -21,6 +22,8 @@ import android.support.test.espresso.base.RootViewPicker;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
 
+import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import android.support.test.runner.lifecycle.Stage;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -49,6 +52,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -300,6 +304,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
 
         onView(withId(R.id.main_layout)).check(matches(isDisplayed()));
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        takeScreenShot();
         onView(withText(R.string.menu_language_settings)).perform(click());
         // hard coded click onto arabic language
         //onView(withId(R.id.ar)).perform(click());
@@ -316,6 +321,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
 
     }
 
+    @Ignore
     @Test
     public void assertNoOverlappingForLineStrokeDialog()
     {
@@ -325,6 +331,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         onView(withId(R.id.linearlayout1)).check(noOverlaps());
     }
 
+    @Ignore
     @Test
     public void assertNoOverlappingForColorPaletteDialog()
     {
@@ -334,6 +341,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         onView(isRoot()).check(noOverlaps());
     }
 
+    @Ignore
     @Test
     public void assertNoOverlappingForToolsDialog()
     {
@@ -342,12 +350,14 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         onView(withId(R.id.gridview_tools_menu)).check(noOverlaps());
     }
 
+    @Ignore
     @Test
     public void assertNoOverlappingForMainActivity()
     {
         onView(withId(R.id.main_layout)).check(noOverlaps());
 
     }
+    @Ignore
     @Test
     public void assertNoEllipseizedTextInToolsDialog() {
         onView(withId(R.id.btn_bottom_tools))
@@ -355,6 +365,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         onView(withId(R.id.gridview_tools_menu)).check(noEllipsizedText());
     }
 
+    @Ignore
     @Test
     public void assertNoEllipseizedTextInStrokeLineDialog()
     {
@@ -363,6 +374,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         onView(withId(R.id.stroke_width_shape_text)).check(noEllipsizedText());
     }
 
+    @Ignore
     @Test
     public void assertNoEllipseizedTextInColorPalette()
     {
@@ -370,12 +382,14 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
                 .perform(click());
         onView(withId(R.id.colorchooser_base_layout)).check(noEllipsizedText());
     }
-   @Test
+    @Ignore
+    @Test
    public void assertNoEllipseizedMainActivity()
    {
        onView(withId(R.id.main_layout)).check(noEllipsizedText());
    }
 
+    @Ignore
     @Test
     public void assertIsDisplayedTextForToolsText() {
         onView(withId(R.id.btn_bottom_tools))
@@ -383,7 +397,8 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         onView(withId(R.id.gridview_tools_menu)).check(matches(isDisplayed()));
     }
 
-   @Test
+    @Ignore
+    @Test
    public void assertIsDisplayedForColorPaletteDialog()
    {
     onView(withId(R.id.btn_bottom_attribute2))
@@ -391,6 +406,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
        onView(withId(R.id.view_colorpicker)).check(matches(isDisplayed()));
    }
 
+    @Ignore
     @Test
     public void assertIsDisplayedForStrokeLineDialog()
     {
@@ -399,6 +415,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         onView(withId(R.id.stroke_width_shape_text)).check(matches(isDisplayed()));
     }
 
+    @Ignore
     @Test
     public void assertNoMultilineButtons() {
         onView(withId(R.id.btn_bottom_tools))
@@ -407,6 +424,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     }
 
 
+    @Ignore
     @Test
     public void assertSeekBarIsRightOfValueForRtlLanguage() {
         onView(withId(R.id.btn_bottom_attribute1))
@@ -419,6 +437,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
 
     }
 
+    @Ignore
     @Test
     public void assertSwipingRightForStrokeSeekbar()
     {
@@ -429,6 +448,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
 
 
 
+    @Ignore
     @Test
     public void assertToolsRightOfTextForRtlOrLeftOfTextForLtRLanguages()
     {
@@ -451,6 +471,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
 
 
 
+    @Ignore
     @Test
     public void assertExistenceForToolsDialog()
     {
@@ -463,6 +484,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         }
     }
 
+    @Ignore
     @Test
     public void assertNoNullValuesForToolsDialog()
     {
@@ -484,6 +506,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
                 withText(R.string.button_line)))).check(matches(notNullValue()));
     }
 
+    @Ignore
     @Test
     public void assertNoEllipseizedForToolsDialog()
     {
@@ -505,6 +528,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
                 withText(R.string.button_resize)))).check(noEllipsizedText());
     }
 
+    @Ignore
     @Test
     public void assertCompletelyDisplayedForToolsDialog()
     {
@@ -534,21 +558,50 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
         onView(withId(R.id.ar)).perform(click());
     }
 
+    private static final String SCREENSHOT_FILENAME_PREFIX ="Screenshot_";
+    private static int screenshot_counter = 0;
 
-    public void takeScreenShot() {
-        onView(withId(R.id.btn_bottom_tools))
-                .perform(click());
-        takeScreenshot("screenshot-001",getActivity());
+    private void takeScreenShot() {
+//            onView(withId(R.id.btn_bottom_tools))
+//                .perform(click());
+
+        takeScreenshot(String.format(SCREENSHOT_FILENAME_PREFIX + "%0" + 10 + "d", screenshot_counter++)
+                , getCurrentActivity(getInstrumentation()));
+
         Log.d(TAG,"##### screenshot taken...");
     }
 
-    public static void takeScreenshot(String name,Activity activity)
+    /**
+     * A helper method to get the currently running activity under test when a test run spans
+     * across multiple activities.
+     * The {@link android.support.test.rule.ActivityTestRule} only returns the initial activity that
+     * was started.
+     * @param instrumentation
+     * @return current Activity
+     */
+    private static final Activity getCurrentActivity(Instrumentation instrumentation){
+        final Activity[] currentActivity = new Activity[1];
+        instrumentation.runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                Collection<Activity> resumeActivies =
+                        ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
+                if(resumeActivies.iterator().hasNext()){
+                    currentActivity[0] = resumeActivies.iterator().next();
+                }
+            }
+
+        });
+        return currentActivity[0];
+    }
+
+    private  static void takeScreenshot(String name,Activity activity)
     {
         // Screenshots are always stored under /Pictures folder
         String path =
                 Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/Pictures/" + name + ".png";
         Log.d(TAG,"##### screenshot path: " +path);
-        View scrScreenshotView = activity.getWindow().getDecorView(); //.getRootView();
+        View scrScreenshotView = activity.getWindow().getDecorView().getRootView();
         scrScreenshotView.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(scrScreenshotView.getDrawingCache());
         scrScreenshotView.setDrawingCacheEnabled(false);
