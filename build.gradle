@@ -1,17 +1,37 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
+        //mavenLocal()    // remove
         mavenCentral()
+        //jcenter() // remove
     }
     dependencies {
         //classpath 'com.android.tools.build:gradle:0.12.+'
         classpath 'com.android.tools.build:gradle:1.0.0'
         classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.10.+'
+        // Facebook screenshots
+        //classpath 'com.android.tools.build:gradle:2.2.0' // remove
+        //classpath 'com.facebook.testing.screenshot:plugin:0.4.2' // remove
     }
 }
 
+// apply plugin: 'com.android.application'             // remove
+// apply plugin: 'com.facebook.testing.screenshot'     // remove
+
 allprojects {
     repositories {
+        // mavenLocal() // remove
         mavenCentral()
     }
 }
+
+//android {
+//    compileSdkVersion 22
+//    buildToolsVersion "23.0.1"
+//
+//    sourceSets {
+//    }
+//}
+//
+//dependencies {
+//}

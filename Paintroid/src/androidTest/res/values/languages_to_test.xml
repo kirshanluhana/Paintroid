@@ -11,7 +11,8 @@
 
 	<string-array name="language_codes">
 		<item>ar</item>
-		<item>sr</item>
+		<item>de</item>
+		<!--item>sr</-item>
 		<item>pt</item>
 		<item>ro</item>
 		<item>ru</item>
@@ -19,7 +20,6 @@
 		<item>sv</item>
 		<item>tr</item>
 		<item>bs</item>
-		<item>de</item>
 		<item>en</item>
 		<item>es</item>
 		<item>fa</item>
@@ -32,6 +32,6 @@
 		<item>nl</item>
 		<item>no</item>
 		<item>pl</item>
-		<item>pt</item>
+		<item>pt</item-->
 	</string-array>
 </resources>

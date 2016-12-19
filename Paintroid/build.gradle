@@ -14,7 +14,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 19
         testApplicationId "org.catrobat.paintroid.test"
-        testInstrumentationRunner "pl.polidea.instrumentation.PolideaInstrumentationTestRunner"
+        //testInstrumentationRunner "pl.polidea.instrumentation.PolideaInstrumentationTestRunner"
 		versionCode 1
 		versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -61,6 +61,8 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     androidTestCompile 'com.android.support.test:rules:0.3'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+
+    // facebook
 }
 
 

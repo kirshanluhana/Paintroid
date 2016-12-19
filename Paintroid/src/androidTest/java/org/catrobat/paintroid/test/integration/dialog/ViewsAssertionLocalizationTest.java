@@ -304,8 +304,8 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
 
         onView(withId(R.id.main_layout)).check(matches(isDisplayed()));
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
-        takeScreenShot();
         onView(withText(R.string.menu_language_settings)).perform(click());
+        takeScreenShot();
         // hard coded click onto arabic language
         //onView(withId(R.id.ar)).perform(click());
         //onView(withId(languageCode)).perform(click());
@@ -555,6 +555,7 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     {
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText(R.string.menu_language_settings)).perform(click());
+        takeScreenShot();
         onView(withId(R.id.ar)).perform(click());
     }
 
@@ -588,6 +589,9 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
                         ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
                 if(resumeActivies.iterator().hasNext()){
                     currentActivity[0] = resumeActivies.iterator().next();
+                    if (currentActivity[0]!= null){
+                        Log.d("##### Activities","num of resume activies: "+currentActivity[0].getComponentName());
+                    }
                 }
             }
 
@@ -598,9 +602,12 @@ public class ViewsAssertionLocalizationTest extends ActivityInstrumentationTestC
     private  static void takeScreenshot(String name,Activity activity)
     {
         // Screenshots are always stored under /Pictures folder
+
         String path =
                 Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/Pictures/" + name + ".png";
         Log.d(TAG,"##### screenshot path: " +path);
+        Log.d(TAG,"##### what activity: " +activity.getComponentName());
+
         View scrScreenshotView = activity.getWindow().getDecorView().getRootView();
         scrScreenshotView.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(scrScreenshotView.getDrawingCache());
