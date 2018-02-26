@@ -100,6 +100,7 @@ public class MultilingualActivity extends AppCompatActivity {
 		SharedPreferences sharedPreferences = activity
 				.getSharedPreferences(SHARED_PREFERENCES_TAG, Context.MODE_PRIVATE);
 		String languageTag = sharedPreferences.getString(LANGUAGE_TAG_KEY, "");
+		PaintroidApplication.defaultSystemLanguage = Locale.getDefault().getLanguage();
 		Locale locale = Arrays.asList(LANGUAGE_CODE).contains(languageTag)
 				? getLocaleFromLanguageTag(languageTag)
 				: new Locale(PaintroidApplication.defaultSystemLanguage);
